@@ -1,0 +1,611 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw1-ijh216}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    https://github.com/isaachaberman/dsga1011\_hw1.git
+
+    \paragraph{Data Readin}\label{data-readin}
+
+Training data was shuffled and split into training and validation
+data-sets of 20,000 and 5,000 respectively. Those functions can be seen
+in \texttt{hw\_functions.py} and \texttt{tokenization.py}.
+
+    \subsubsection{Ablation Study Study}\label{ablation-study-study}
+
+\paragraph{Tokenization Scheme}\label{tokenization-scheme}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Tokenization Scheme & Accuracy\tabularnewline
+\midrule
+\endhead
+Original & 87.56\tabularnewline
+Stop Word Removal & 87.86\tabularnewline
+Entities & 87.06\tabularnewline
+\bottomrule
+\end{longtable}
+
+I tried three tokenization schemes: 1. A variant of the original scheme
+used in class. I added an additional removal of html breaks.\\
+2. Stop Word Removal. Following the previous scheme, I added a removal
+of stop words and apostrophes. 3. Entity Keeping. Using Spacy's
+entities, I kept the tokens that had proper entities and removed the
+others.
+
+Of the three, the second tokenization scheme performed the best, with a
+maximum accuracy of 87.86\%, marginally better than the other maximum
+accuracies of 87.56\% and 87.06\%. I also note, that the first and third
+tokenization schemes have worse overfitting than the second scheme, with
+greater dims in accuracy towards the end of training. I suspect that the
+the stop word removal performed the best, as the stop words cloud the
+bag of words by being among the most common words and removing them
+allows for easier sentiment analysis.
+
+    \paragraph{N-grams}\label{n-grams}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+N-grams & Accuracy\tabularnewline
+\midrule
+\endhead
+Unigrams & 87.98\tabularnewline
+Bigrams & 50.06\tabularnewline
+Trigrams & 50.06\tabularnewline
+Tetragrams & 50.06\tabularnewline
+\bottomrule
+\end{longtable}
+
+I tried four n-grams sizes, unigrams, bigrams, trigrams and tetragrams.
+For each n-gram scheme, I tested each set of n-grams by themselves. Of
+those unigrams performed remarkably better than any of the other schemes
+with a validation accuracy of 87.98\% compared to other accuracies of
+50\%. I ssupect much of the results may lie in a faulty implementation
+or the need for the larger n-grams to be used in conjunction with
+unigrams, a configuration I did not test.
+
+    \paragraph{Vocabulary Size}\label{vocabulary-size}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Vocabulary Size & Accuracy\tabularnewline
+\midrule
+\endhead
+10k & 88.16\tabularnewline
+20k & 88.62\tabularnewline
+30k & 88.5\tabularnewline
+40k & 88.44\tabularnewline
+50k & 88.04\tabularnewline
+100k & 88.94\tabularnewline
+200k & 88.34\tabularnewline
+\bottomrule
+\end{longtable}
+
+I varied vocabulary size from 10,000 to 200,000k, with all vocabulary
+sizes having similar maximum validation accuracies and similar levels of
+overfitting. That being said, I chose a vocabulary size of 100,000 as it
+was the best performing. With the removal of stop words and the use of
+unigrams, it may be that the vocabulary size is no longer an important
+hyperparameter and any nmber of words can be used in the Bag of Words
+model.
+
+    \paragraph{Embedding Size}\label{embedding-size}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Embedding Size & Accuracy\tabularnewline
+\midrule
+\endhead
+50 & 88.2\tabularnewline
+100 & 88.3\tabularnewline
+150 & 88.9\tabularnewline
+200 & 88.92\tabularnewline
+\bottomrule
+\end{longtable}
+
+Using the aforementioned hyperparameters, I tested embedding sizes from
+50 - 200. All four embeddings performed similarly, with maximum
+validation accuracies around 88\% and similar levels of overfitting.
+That being said, the best performing embedding size was 200 with a
+maximum validation accuracy of 88.92\%. Similarly to the vocabulary
+size, its possible the importance of embedding size is lessened by the
+prior hyperparameter choices.
+
+    \paragraph{Learning Rate}\label{learning-rate}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Learning Rate & Accuracy\tabularnewline
+\midrule
+\endhead
+0.0001 & 80.42\tabularnewline
+0.001 & 89.2\tabularnewline
+0.01 & 88.62\tabularnewline
+0.1 & 86.7\tabularnewline
+1 & 86.14\tabularnewline
+\bottomrule
+\end{longtable}
+
+Unlike the previous two hyperparameters, there were vast differences
+between the maximum validation accuracies among the learning rates. The
+best learning rate occured at 0.001, one of the smaller learning rates I
+tested. From the results it is clear that choosing too small a learning
+rate does not produce satisfactory results and the data appears
+underfit. And for learning rates that are too large, the model moves to
+quickly, and there appear to be poor moves as there is a large dip in
+accuracy for both the training and validation accuracy for the biggest
+learning rates. Since learning rates can be altered depending on the
+epoch, I also tested linear annealing of learning rates. The results can
+be seen below.
+
+    \paragraph{Annealing Learning Rate}\label{annealing-learning-rate}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Annealing Learning Rate & Accuracy\tabularnewline
+\midrule
+\endhead
+0.0001 & 52.66\tabularnewline
+0.001 & 80.62\tabularnewline
+0.01 & 88.26\tabularnewline
+0.1 & 88.04\tabularnewline
+1 & 86.98\tabularnewline
+\bottomrule
+\end{longtable}
+
+For the linear annealed learning rate, the best results were quite
+similar to the best results of the non-annealed learning rate, with
+small initial values not improving and the largest initial values
+slightly overfitting. Keeping gamma constant, the best performing
+annealing learning rate was 0.01 with a maximum validation accuracy of
+88.26\%.
+
+    \paragraph{Gamma}\label{gamma}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Learning Rate-Gamma & Accuracy\tabularnewline
+\midrule
+\endhead
+0.001 & 88.74\tabularnewline
+0.01 & 88.18\tabularnewline
+0.1 & 88.9\tabularnewline
+1 & 88.24\tabularnewline
+\bottomrule
+\end{longtable}
+
+For the other annealing learning rate hyperparameter, the best
+validation accuracy produced was very similar to the non-annealed
+learning rates. For a gamma of 0.1, the validation accuracy was 88.9\%.
+Since the optimized annealed learning rate had similar validation
+accuracy to the non-annealed learning rate, I chose to use the annealed
+learning rate to help prevent overfitting.
+
+    \paragraph{Optimizer}\label{optimizer}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Optimizer & Accuracy\tabularnewline
+\midrule
+\endhead
+Adam & 88.48\tabularnewline
+SGD & 61.18\tabularnewline
+\bottomrule
+\end{longtable}
+
+The Adam optimizer produced remarkably better results than the SGD
+optimizer. Therefore, I used the Adam optimizer for the final model.
+Since the earlier hyperparameter choices had been optimized to Adam, I
+suspect that the poor results of SGD may stem from the earlier tuning.
+
+    \subsubsection{Weight Decay}\label{weight-decay}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Weight Decay & Accuracy\tabularnewline
+\midrule
+\endhead
+0.0001 & 87.3\tabularnewline
+0.001 & 83.34\tabularnewline
+0.01 & 54.52\tabularnewline
+0.1 & 49.94\tabularnewline
+1 & 50.06\tabularnewline
+\bottomrule
+\end{longtable}
+
+Lastly, I did a hyperparameter search over the weight decay to help
+prevent overfitting in the final model. Of the weight decay options,
+0.0001 produced the best validation accuracy with a value of 87.3\%.
+Given too large a weight decay, the model performs rather poorly as the
+constraint of the weight decay destroys performance gains, while the
+smaller weight decays produce better results since they restrict the
+model less. Since there does not appear to be much overfitting in the
+final results, the validation accuracy not dipping, the smallest weight
+decay was an appropriate choice.
+
+    \paragraph{Final Model}\label{final-model}
+
+Using the best performing hyperparameters, the model produces a final
+test accuracy of 86.7\% compared to a test accuracy of 82.61\% using the
+non-ablated hyperparameters. In other words, by using a doing an
+abalation study, we were able to successfully classify an additional
+1000 reviews.
+
+I suspect with some additional tuning we may be able to improve the test
+accuracy. I did not test the rate in which the linear annealing occurs
+as a function of the step size, nor did I test the use of unigrams and
+bigrams together, two other hyperparameter choices that may have
+improves results.
+
+    \paragraph{Misclassified Examples}\label{misclassified-examples}
+
+'two things changed first kid anymore second new seagal movies terrible
+this opinion worst movie derailed starred jean claude van damme there
+plot movie plot excuse shoot terrible action scenes painful watch i love
+action movies action movie this nt movie group irritating scenes
+connected annoying way kill viewers love action movies i sorry nt
+respect liked movie he intelligence problem i hope seagal new good
+movies future good luck' - While the tokenization removes some of the
+readability, the reviews can still be analyzed. For instance, this first
+misclassification might have been caused by the repeated use of "love" a
+term associated with positive sentiment but here is used as background.
+The author loves action films, yet does not like this film.
+
+'after watch movie i surprised like i think worst comedy i seen if think
+seen worst comedy wait watch crap not funny ok laugh maybe high acting
+terrible story nt exist even like i hate movie ok ok nice babes nice
+tricks beautiful mountains s watch porno set mountains instead acting
+story line better sometimes imdb i read bad review movie end awful
+believe pure trash do nt waste time money' - This review refers to
+"favourite movies" (it might be worth standardizing spellings of words
+in a different tokenization scheme), "positive", "brightest" and other
+positive words, which in conjunction with other words would produce
+negative sentiment, but as seen by themselves produce positive
+sentiment.
+
+'after watch movie i surprised like i think worst comedy i seen if think
+seen worst comedy wait watch crap not funny ok laugh maybe high acting
+terrible story nt exist even like i hate movie ok ok nice babes nice
+tricks beautiful mountains s watch porno set mountains instead acting
+story line better sometimes imdb i read bad review movie end awful
+believe pure trash do nt waste time money' - The reviewer spends much of
+the review trashing the movie, yet starts the review with "i surprised
+like," i.e. the reviewer enjoyed the film even though there were
+negative elements to it. Therefore, the review was classified negatively
+even though it was a positive review.
+
+    \paragraph{Classified Examples}\label{classified-examples}
+
+'after astronaut dies space brought military base inside man discovered
+alien embryos host terrible alien invasion this film comes director
+bernard l. kowalski directed attack giant leeches separate review better
+known work columbo executive producer roger corman known creator better
+films particularly 1960s this movie cheesy poorly constructed what comes
+interesting poor effects actual film one scene shows close alien embryos
+embarrassing cartoon representation even 1958 and grown alien appears ll
+wonder wearing shoes or perceptive ll wonder ve seen alien suit movies
+by means worst science fiction film ll and credit alien host overtaking
+military base idea predates the thing alien number years i nt know films
+inspired way i doubt ahead time beyond film flops great heckling
+drinking i nt seen mystery science theater version sure film worthy
+insults' - There is clear negative sentiment in this review with words
+like "flops", "embarassing", "worst", and "insults."
+
+'minor spoilersin chicago grace beasley kathy bates housewife having
+years marriage lawyer max beasley dan aykroyd hysterical psychotic dwarf
+daughter law meredith eaton grace worships singer victor fox jonathan
+price present tv chicago spots row tv promotion kate calls wins ticket
+max simultaneously asks divorce claiming lives monotonous grace
+depressed goes audience informed chicago serial killer uses crossbow
+killed victor fox with broken heart decides fly england victor foxs
+funeral there realizes gay friend mate dirk simpson rupert everett they
+fly chicago trying find killer this movie delightful original weird
+dramatic comedy having bizarre characters it huge potential cult movie
+presences julie andrews barry joke nicolas roegs masterpiece do nt look
+now wears red raincoat chicagos underground city the beginning movie
+jonathan price singing hitchcock railway wonderful i repeated
+consecutive times the cast magnificent performance highlighting kathy
+bates jonathan price rupert everett unknown meredith eaton indeed movie
+excellent entertainment my vote title brazil amor love proof' - The
+reviewer refers to this film as "delightful" a positively charged word.
+Since much of the review is a summary of the film, there is littler
+other sentiment.
+
+'this movie potential good movie eyes nicholas sparks great romance
+author movie chance great the notebook s sets apart notebook dream team
+leads mcadams gosling balance thrown miserably inept acting channing
+felt lot scenes uneven purely performance lot emotion scenes lost nt act
+leaving awkward uneven situation amanda given great performance tatum
+drop ball mood lost scene nt recover this story deserved cast right got
+pretty boy nt act tatum stick s good movies physical ability albeit
+horrible like gi joe step fighting the talks better try think jaded
+hater channing tatum i went movie open mind i ve surprised time likes
+adam sandler reign me i gave chance tatum i nt view sum past roles
+purely performance movie sadly letdown' - While the reviewer has qualms
+with the film, they enjoy the lead actressses performance and Nicholas
+Sparks novels and therefore the positive sentiment outweighs the
+negative.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
